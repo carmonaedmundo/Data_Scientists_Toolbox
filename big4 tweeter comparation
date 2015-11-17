@@ -1,4 +1,3 @@
-#### Get info from Deloitte New Zealand
 library("twitteR")
 consumer_key <- "Itw2eegFPGceNg2WEWg70DQhV"
 consumer_secret <- "jixEduT3f6VD3hGlxSZwayy2Xa1Q4qecn8Z79UYOZdAzq9qrFm"
@@ -23,14 +22,20 @@ points(dfPWC$created,dfPWC$retweetCount, col="red", type = 'l')
 #tweetsKPMG <- searchTwitter("@kpmgnzjobs")
 tweetsKPMG <- searchTwitter("@KPMGMEXICO")
 dfKPMG <- twListToDF(tweetsKPMG)
-points(dfKPMG$created,dfKPMG$favoriteCount, col="blue", type = 'l')
+points(dfKPMG$created,dfKPMG$retweetCount, col="blue", type = 'l')
 
 #tweetsEY <- searchTwitter("@EYnews")
 tweetsEY <- searchTwitter("@EYNewsMexico")
 dfEY <- twListToDF(tweetsEY)
-points(dfEY$created,dfEY$favoriteCount, col="blue", type = 'l')
+points(dfEY$created,dfEY$retweetCount, col="green", type = 'l')
 
 
 legend("topright", col = c("black","red","blue","green"), cex = 0.8,
        legend = c("Deloitte", "PWC","KPMG","EY"), lty=c(1,1,1,1), lwd=c(3,3,3,3))
 
+retweetCount<-c(dfDtt$retweetCount,dfPWC$retweetCount,dfKPMG$retweetCount,dfEY$retweetCount)
+favoriteCount<-c(dfDtt$favoriteCount,dfPWC$favoriteCount,dfKPMG$favoriteCount,dfEY$favoriteCount)
+created<-c(dfDtt$created,dfPWC$created,dfKPMG$created,dfEY$created,favoriteCount)
+company <-c(rep("Deloitte",25),rep("PWC",25),rep("KPMG",25),rep("EY",25))
+dfTotal <- data.frame(company=company,created=created,retweetCount=retweetCount,favoriteCount=favoriteCount)
+write.csv(dfTotal,file="tweetsBig4.csv")
