@@ -1,0 +1,36 @@
+#### Get info from Deloitte New Zealand
+library("twitteR")
+consumer_key <- "Itw2eegFPGceNg2WEWg70DQhV"
+consumer_secret <- "jixEduT3f6VD3hGlxSZwayy2Xa1Q4qecn8Z79UYOZdAzq9qrFm"
+access_token <- "48018275-qiEMFSF6XMXgy9w883UtdDGhrlpcHJIwgRDtQw3af"
+access_secret <- "Te3ghiMixMzmIgsNcSH8C6qz8pOC00LQq43lIzmjjumce"
+setup_twitter_oauth(consumer_key,
+                    consumer_secret,
+                    access_token,
+                    access_secret)
+
+#tweetsDtt <- searchTwitter("@DeloitteNZ")
+tweetsDtt <- searchTwitter("@DeloitteMX")
+dfDtt <- twListToDF(tweetsDtt)
+plot(dfDtt$created,dfDtt$retweetCount, type='l')
+
+#tweetsPWC <- searchTwitter("@PwC_NZ", n = 500)
+tweetsPWC <- searchTwitter("@PwC_Mexico")
+dfPWC <- twListToDF(tweetsPWC)
+
+points(dfPWC$created,dfPWC$retweetCount, col="red", type = 'l')
+
+#tweetsKPMG <- searchTwitter("@kpmgnzjobs")
+tweetsKPMG <- searchTwitter("@KPMGMEXICO")
+dfKPMG <- twListToDF(tweetsKPMG)
+points(dfKPMG$created,dfKPMG$favoriteCount, col="blue", type = 'l')
+
+#tweetsEY <- searchTwitter("@EYnews")
+tweetsEY <- searchTwitter("@EYNewsMexico")
+dfEY <- twListToDF(tweetsEY)
+points(dfEY$created,dfEY$favoriteCount, col="blue", type = 'l')
+
+
+legend("topright", col = c("black","red","blue","green"), cex = 0.8,
+       legend = c("Deloitte", "PWC","KPMG","EY"), lty=c(1,1,1,1), lwd=c(3,3,3,3))
+
